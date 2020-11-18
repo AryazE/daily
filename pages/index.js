@@ -15,7 +15,7 @@ function getCurAct(plan) {
     end.setHours(item.to.split(':')[0]);
     end.setMinutes(item.to.split(':')[1]);
     // console.log(start, cur, end);
-    if (start <= cur && cur <= end)
+    if (start <= cur && cur < end)
       result = item;
   });
   return result.activity + ' until ' + result.to;
