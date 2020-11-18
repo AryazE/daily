@@ -6,19 +6,22 @@ import { useEffect, useState } from 'react';
 
 function getCurAct(plan) {
   const cur = new Date();
-  var result = {activity: 'nothing for now'};
-  plan.forEach(item => {
+  let i = plan.findIndex(item => {
     const start = new Date();
     start.setHours(item.from.split(':')[0]);
     start.setMinutes(item.from.split(':')[1]);
     const end = new Date();
     end.setHours(item.to.split(':')[0]);
     end.setMinutes(item.to.split(':')[1]);
-    // console.log(start, cur, end);
-    if (start <= cur && cur < end)
-      result = item;
+    return (start <= cur && cur < end);
   });
-  return result.activity + ' until ' + result.to;
+  return (
+    <ul>
+      <li className={styles.notCurrent}>{plan[i-1]?.activity || 'nothing'}</li>
+      <li className={styles.current}>{(plan[i]?.activity + ' until ' + plan[i]?.to) || 'nothing'}</li>
+      <li className={styles.notCurrent}>{plan[i+1]?.activity || 'nothing'}</li>
+    </ul>
+  );
 }
 
 export default function Home({plan}) {
@@ -38,10 +41,7 @@ export default function Home({plan}) {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to Daily!
-        </h1>
-        <h1>{currentActivity}</h1>
+        <div>{currentActivity}</div>
       </main>
 
       <footer className={styles.footer}>
