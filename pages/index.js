@@ -1,53 +1,47 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import fs from 'fs'
+import path from 'path'
+import { useEffect, useState } from 'react';
 
-export default function Home() {
+function getCurAct(plan) {
+  const cur = new Date();
+  var result = {activity: 'nothing for now'};
+  plan.forEach(item => {
+    const start = new Date();
+    start.setHours(item.from.split(':')[0]);
+    start.setMinutes(item.from.split(':')[1]);
+    const end = new Date();
+    end.setHours(item.to.split(':')[0]);
+    end.setMinutes(item.to.split(':')[1]);
+    // console.log(start, cur, end);
+    if (start <= cur && cur <= end)
+      result = item;
+  });
+  return result.activity + ' until ' + result.to;
+}
+
+export default function Home({plan}) {
+  const [currentActivity, setCurrentActivity] = useState("Nothing for now!");
+  useEffect(() => {
+    setCurrentActivity(getCurAct(plan));
+    const interval = setInterval(() => {
+      setCurrentActivity(getCurAct(plan));
+    }, 30*1000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Daily</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to Daily!
         </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <h1>{currentActivity}</h1>
       </main>
 
       <footer className={styles.footer}>
@@ -62,4 +56,14 @@ export default function Home() {
       </footer>
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const plan = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'myPlan.json'))).plan;
+  // console.log(plan);
+  return {
+    props: {
+      plan,
+    }
+  };
 }
