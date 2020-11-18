@@ -8,7 +8,7 @@
         {
             "from": "06:45",
             "to": "08:00",
-            "activity": "Watch RLT/Research"
+            "activity": "Educational video/Research"
         },
         {
             "from": "08:00",
@@ -17,16 +17,11 @@
         },
         {
             "from": "08:45",
-            "to": "09:00",
-            "activity": "Prepare breakfast"
+            "to": "09:45",
+            "activity": "Prepare & eat breakfast"
         },
         {
-            "from": "09:00",
-            "to": "10:00",
-            "activity": "Breakfast"
-        },
-        {
-            "from": "10:00",
+            "from": "09:45",
             "to": "11:30",
             "activity": "Research"
         },
@@ -48,12 +43,12 @@
         {
             "from": "15:00",
             "to": "15:30",
-            "activity": "Checkout stock market"
+            "activity": "Checkout NYSE"
         },
         {
             "from": "15:30",
             "to": "16:00",
-            "activity": "Stock market open"
+            "activity": "NYSE open"
         },
         {
             "from": "16:00",
@@ -83,7 +78,7 @@
         {
             "from": "22:00",
             "to": "22:05",
-            "activity": "Stock market close"
+            "activity": "NYSE close"
         },
         {
             "from": "22:05",
@@ -93,7 +88,7 @@
         {
             "from": "22:15",
             "to": "23:59",
-            "activity": "Research/Jogging"
+            "activity": "Sleep"
         }
     ]
 }
