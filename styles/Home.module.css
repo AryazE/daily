@@ -1,4 +1,13 @@
-.notCurrent {
+.listNoBullet {
+  list-style-type: none;
+  font-size: x-large;
+}
+
+.notCurrent2 {
+  color: gainsboro;
+}
+
+.notCurrent1 {
   color: gray;
 }
 

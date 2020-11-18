@@ -16,10 +16,12 @@ function getCurAct(plan) {
     return (start <= cur && cur < end);
   });
   return (
-    <ul>
-      <li className={styles.notCurrent}>{plan[i-1]?.activity || 'nothing'}</li>
+    <ul className={styles.listNoBullet}>
+      <li className={styles.notCurrent2}>{plan[i-2]?.activity || 'nothing'}</li>
+      <li className={styles.notCurrent1}>{plan[i-1]?.activity || 'nothing'}</li>
       <li className={styles.current}>{(plan[i]?.activity + ' until ' + plan[i]?.to) || 'nothing'}</li>
-      <li className={styles.notCurrent}>{plan[i+1]?.activity || 'nothing'}</li>
+      <li className={styles.notCurrent1}>{plan[i+1]?.activity || 'nothing'}</li>
+      <li className={styles.notCurrent2}>{plan[i+2]?.activity || 'nothing'}</li>
     </ul>
   );
 }
